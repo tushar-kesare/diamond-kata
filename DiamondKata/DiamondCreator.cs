@@ -25,14 +25,26 @@ namespace DiamondKata
                 }
                 else
                 {
+                    string secondPart = null;
+                    if (current == input)
+                    {
+                        secondPart = string.Concat(builder.ToString().TrimEnd('\n').ToArray().Reverse());
+                    }
+
                     builder.Append(indentation)
                         .Append(current)
                         .Append(GetMiddleSpacesFor(current, input))
                         .Append(current)
                         .Append(indentation);
+
+                    if (current == input)
+                    {
+                        builder.Append('\n');
+                        builder.Append(string.Concat(secondPart));
+                    }
                 }
 
-                builder.Append("\\n");
+                builder.Append('\n');
             }
 
 

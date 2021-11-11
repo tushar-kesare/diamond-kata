@@ -16,5 +16,15 @@ namespace DiamondKata.Tests
             var result = sut.Create(input);
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void When_B_should_print_first_line_with_spaces()
+        {
+            var input = 'B';
+            var expected = " A ";
+
+            var result = sut.Create(input);
+            Assert.Equal(expected, result);
+        }
     }
 }

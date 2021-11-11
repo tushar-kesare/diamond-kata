@@ -28,5 +28,18 @@ namespace DiamondKata.Tests
             var result = sut.Create(input);
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void When_C_should_print_three_lines()
+        {
+            var input = 'C';
+            var expected =
+                "  A  \\n" +
+                " B B \\n" +
+                "C   C\\n";
+
+            var result = sut.Create(input);
+            Assert.Equal(expected, result);
+        }
     }
 }

@@ -7,54 +7,45 @@ namespace DiamondKata
 {
     public class DiamondCreator
     {
-        private const char emptySpaceCharacter = ' ';
-
         public string Create(char input)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-            for (Char current = 'A'; current <= input; current++)
+            for (char current = 'A'; current <= input; current++)
             {
-                var indentation = GetIndentationFor(current, input);
-
+                // Middle spaces not required for 'A'
                 if (current == 'A')
                 {
-                    builder.Append(indentation)
+                    builder.AppendIndentationFor(current, input)
                         .Append(current)
-                        .Append(indentation);
+                        .AppendIndentationFor(current, input);
                 }
                 else
                 {
-                    string secondPart = null;
+                    string secondHalf = null;
+                    // Mirror the first half before appending line for input letter
                     if (current == input)
                     {
-                        secondPart = string.Concat(builder.ToString().TrimEnd('\n').ToArray().Reverse());
+                        secondHalf = string.Concat(builder.ToString().TrimEnd('\n').ToArray().Reverse());
                     }
 
-                    builder.Append(indentation)
+                    builder.AppendIndentationFor(current, input)
                         .Append(current)
-                        .Append(GetMiddleSpacesFor(current, input))
+                        .AppendMiddleSpacesFor(current)
                         .Append(current)
-                        .Append(indentation);
+                        .AppendIndentationFor(current, input);
 
-                    if (current == input)
+                    if (secondHalf != null)
                     {
                         builder.Append('\n');
-                        builder.Append(string.Concat(secondPart));
+                        builder.Append(string.Concat(secondHalf));
                     }
                 }
 
                 builder.Append('\n');
             }
 
-
             return builder.ToString();
         }
-
-        public string GetIndentationFor(char current, char input) =>
-            new StringBuilder().Append(emptySpaceCharacter, input - current).ToString();
-
-        public string GetMiddleSpacesFor(char current, char input) =>
-            new StringBuilder().Append(emptySpaceCharacter, ((current - 'A') * 2) - 1).ToString();
     }
 }

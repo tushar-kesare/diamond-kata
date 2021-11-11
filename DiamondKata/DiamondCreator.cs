@@ -7,22 +7,42 @@ namespace DiamondKata
 {
     public class DiamondCreator
     {
-        private const char indentCharacter = ' ';
+        private const char emptySpaceCharacter = ' ';
 
         public string Create(char input)
         {
             StringBuilder builder = new StringBuilder();
 
-            var indentation = GetIndentationFor('A', input);
+            for (Char current = 'A'; current <= input; current++)
+            {
+                var indentation = GetIndentationFor(current, input);
 
-            builder.Append(indentation)
-                .Append('A')
-                .Append(indentation);
+                if (current == 'A')
+                {
+                    builder.Append(indentation)
+                        .Append(current)
+                        .Append(indentation);
+                }
+                else
+                {
+                    builder.Append(indentation)
+                        .Append(current)
+                        .Append(GetMiddleSpacesFor(current, input))
+                        .Append(current)
+                        .Append(indentation);
+                }
+
+                builder.Append("\\n");
+            }
+
 
             return builder.ToString();
         }
 
         public string GetIndentationFor(char current, char input) =>
-            new StringBuilder().Append(indentCharacter, input - current).ToString();
+            new StringBuilder().Append(emptySpaceCharacter, input - current).ToString();
+
+        public string GetMiddleSpacesFor(char current, char input) =>
+            new StringBuilder().Append(emptySpaceCharacter, ((current - 'A') * 2) - 1).ToString();
     }
 }
